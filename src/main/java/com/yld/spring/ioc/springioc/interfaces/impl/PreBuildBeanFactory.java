@@ -23,6 +23,8 @@ public class PreBuildBeanFactory extends DefaultBeanFactory {
 	}
 	
 	/**
+	 * 
+	 * 
 	 * 提前创建单例bean方法
 	 * @throws Exception
 	 */
