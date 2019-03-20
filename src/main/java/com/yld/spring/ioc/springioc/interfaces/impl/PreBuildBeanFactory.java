@@ -22,6 +22,10 @@ public class PreBuildBeanFactory extends DefaultBeanFactory {
 		}
 	}
 	
+	/**
+	 * 提前创建单例bean方法
+	 * @throws Exception
+	 */
 	public void preInstantiateSingletions() throws Exception {
 		synchronized (beanNames) {
 			beanNames.stream().forEach(beanName-> {
