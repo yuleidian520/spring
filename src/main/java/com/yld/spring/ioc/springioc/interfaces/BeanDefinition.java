@@ -1,8 +1,13 @@
 package com.yld.spring.ioc.springioc.interfaces;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.yld.spring.ioc.springioc.interfaces.impl.PropertyValue;
 
 /**
  * bean定义
@@ -64,6 +69,22 @@ public interface BeanDefinition {
 	 * @return
 	 */
 	String getDestroyMethodeName();
+	
+	List<Object> getConstructorArgumentValues();
+
+	void setConstructorArgumentValues(List<Object> constructorArgumentValues);
+
+	Constructor<?> getConstructor();
+
+	void setConstructor(Constructor<?> constructor);
+
+	Method getFactoryMethod();
+	
+	void setFactoryMethod(Method factoryMethod);
+	
+	List<PropertyValue> getPropertyValues();
+
+	void setPropertyValues(List<PropertyValue> propertyValues);
 	
 	/**
 	 * 效验给定信息是否能创建一个bean

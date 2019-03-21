@@ -1,5 +1,8 @@
 package com.yld.spring.ioc.springioc.interfaces.impl;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +27,14 @@ public class GenericBeanDefinition implements BeanDefinition {
 	private String initMethod;
 	
 	private String destoryMethodName;
+	
+	private List<Object> constructorArgumentValues;
+	
+	private Constructor<?> constructor;
+	
+	private Method factoryMethod;
+	
+	private List<PropertyValue> propertyValues;
 	
 	@Override
 	public boolean isSingleton() {
@@ -88,6 +99,38 @@ public class GenericBeanDefinition implements BeanDefinition {
 
 	public void setDestoryMethodName(String destoryMethodName) {
 		this.destoryMethodName = destoryMethodName;
+	}
+
+	public List<Object> getConstructorArgumentValues() {
+		return constructorArgumentValues;
+	}
+
+	public void setConstructorArgumentValues(List<Object> constructorArgumentValues) {
+		this.constructorArgumentValues = constructorArgumentValues;
+	}
+
+	public Constructor<?> getConstructor() {
+		return constructor;
+	}
+
+	public void setConstructor(Constructor<?> constructor) {
+		this.constructor = constructor;
+	}
+
+	public Method getFactoryMethod() {
+		return factoryMethod;
+	}
+
+	public void setFactoryMethod(Method factoryMethod) {
+		this.factoryMethod = factoryMethod;
+	}
+
+	public List<PropertyValue> getPropertyValues() {
+		return propertyValues;
+	}
+
+	public void setPropertyValues(List<PropertyValue> propertyValues) {
+		this.propertyValues = propertyValues;
 	}
 
 	public boolean equals(Object obj) {
