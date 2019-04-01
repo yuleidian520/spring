@@ -1,4 +1,4 @@
-package com.yld.spring.ioc.springioc.interfaces;
+package com.yld.spring.ioc.springioc.interfaces.beans;
 
 /**
  * bean工厂
@@ -13,5 +13,11 @@ public interface BeanFactory {
 	 * @return
 	 */
 	Object getBean(String name) throws Exception;
+	
+	/**
+	 * 注册AOPbean
+	 * @param bpp
+	 */
+	void registerBeanPostProcessor(BeanPostProcessor bpp);
 	
 }

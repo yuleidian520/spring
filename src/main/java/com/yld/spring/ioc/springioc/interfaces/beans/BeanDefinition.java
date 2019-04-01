@@ -1,4 +1,4 @@
-package com.yld.spring.ioc.springioc.interfaces;
+package com.yld.spring.ioc.springioc.interfaces.beans;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.yld.spring.ioc.springioc.interfaces.impl.PropertyValue;
+import com.yld.spring.ioc.springioc.interfaces.beans.impl.PropertyValue;
 
 /**
  * bean定义
@@ -85,6 +85,16 @@ public interface BeanDefinition {
 	List<PropertyValue> getPropertyValues();
 
 	void setPropertyValues(List<PropertyValue> propertyValues);
+	
+	String getAliasName();
+
+	void setAliasName(String aliasName);
+	
+	Object[] getConstructorArgumentRealValues();
+	
+	void setConstructorArgumentRealValues(Object[] values);
+	
+	
 	
 	/**
 	 * 效验给定信息是否能创建一个bean

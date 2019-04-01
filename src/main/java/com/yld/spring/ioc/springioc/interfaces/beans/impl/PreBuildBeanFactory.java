@@ -1,9 +1,9 @@
-package com.yld.spring.ioc.springioc.interfaces.impl;
+package com.yld.spring.ioc.springioc.interfaces.beans.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.yld.spring.ioc.springioc.interfaces.BeanDefinition;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanDefinition;
 
 /**
  * 提前创建单例bean工厂

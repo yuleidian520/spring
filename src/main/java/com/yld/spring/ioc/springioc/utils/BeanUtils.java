@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 
-import com.yld.spring.ioc.springioc.interfaces.BeanFactory;
-import com.yld.spring.ioc.springioc.interfaces.impl.BeanReference;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanFactory;
+import com.yld.spring.ioc.springioc.interfaces.beans.impl.BeanReference;
 
 /**
  * bean工具

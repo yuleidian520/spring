@@ -1,4 +1,4 @@
-package com.yld.spring.ioc.springioc.interfaces.impl;
+package com.yld.spring.ioc.springioc.interfaces.beans.impl;
 
 /**
  * bean依赖

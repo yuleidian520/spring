@@ -1,4 +1,4 @@
-package com.yld.spring.ioc.springioc.interfaces;
+package com.yld.spring.ioc.springioc.interfaces.beans;
 
 /**
  * bean定义注册

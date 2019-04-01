@@ -1,4 +1,4 @@
-package com.yld.spring.ioc.springioc.interfaces.impl;
+package com.yld.spring.ioc.springioc.interfaces.beans.impl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.yld.spring.ioc.springioc.interfaces.BeanDefinition;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanDefinition;
 
 /**
  * 通用bean定义
@@ -35,6 +35,11 @@ public class GenericBeanDefinition implements BeanDefinition {
 	private Method factoryMethod;
 	
 	private List<PropertyValue> propertyValues;
+	
+	private String  aliasName;
+	
+	private ThreadLocal<Object[]> constructorArgumentRealValues;
+	
 	
 	@Override
 	public boolean isSingleton() {
@@ -133,6 +138,14 @@ public class GenericBeanDefinition implements BeanDefinition {
 		this.propertyValues = propertyValues;
 	}
 
+	public String getAliasName() {
+		return aliasName;
+	}
+
+	public void setAliasName(String aliasName) {
+		this.aliasName = aliasName;
+	}
+
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -168,5 +181,18 @@ public class GenericBeanDefinition implements BeanDefinition {
 		result = prime * result + (Objects.isNull(initMethod) ? 0 : initMethod.hashCode());
 		result = prime * result + (Objects.isNull(destoryMethodName) ? 0 : destoryMethodName.hashCode());
 		return result;
+	}
+
+	@Override
+	public Object[] getConstructorArgumentRealValues() {
+		return this.constructorArgumentRealValues.get();
+	}
+
+	@Override
+	public void setConstructorArgumentRealValues(Object[] values) {
+		if (Objects.isNull(this.constructorArgumentRealValues)) {
+			constructorArgumentRealValues = new ThreadLocal<>();
+		}
+		constructorArgumentRealValues.set(values);
 	}
 }

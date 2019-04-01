@@ -1,8 +1,10 @@
-package com.yld.spring.ioc.springioc.interfaces.impl;
+package com.yld.spring.ioc.springioc.interfaces.beans.impl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import com.yld.spring.ioc.springioc.exceptions.BeanDefinitionRegisterException;
-import com.yld.spring.ioc.springioc.interfaces.BeanDefinition;
-import com.yld.spring.ioc.springioc.interfaces.BeanDefinitionRegistry;
-import com.yld.spring.ioc.springioc.interfaces.BeanFactory;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanDefinition;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanDefinitionRegistry;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanFactory;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanFactoryAware;
+import com.yld.spring.ioc.springioc.interfaces.beans.BeanPostProcessor;
 import com.yld.spring.ioc.springioc.utils.BeanUtils;
 
 /**
@@ -32,7 +36,9 @@ public class DefaultBeanFactory implements BeanFactory, BeanDefinitionRegistry {
 	
 	private ThreadLocal<Set<String>> buildingBeans = new ThreadLocal<>();
 	
+	// private Set<String> aliasList = new HashSet<String>(255);
 	
+	private List<BeanPostProcessor> beanPostProcessors = Collections.synchronizedList(new ArrayList<>());
 	@Override
 	public Object getBean(String name) throws Exception {
 		return doGetBean(name);
@@ -77,7 +83,11 @@ public class DefaultBeanFactory implements BeanFactory, BeanDefinitionRegistry {
 		
 		this.setPropertyDIValue(bd, instance);
 		
+		instance = this.applyPostProcessBeforeInitialization(instance, name);
+		
 		this.doInit(bd, instance);
+		
+		instance = this.applyPostProcessAfterInitialization(instance, name);
 		
 		if (bd.isSingleton()) {
 			beans.put(name, instance);
@@ -85,6 +95,25 @@ public class DefaultBeanFactory implements BeanFactory, BeanDefinitionRegistry {
 		return instance;
 	}
 	
+	private Object applyPostProcessBeforeInitialization(Object instance, String name) throws Exception {
+		if (!CollectionUtils.isEmpty(beanPostProcessors)) {
+			for (BeanPostProcessor bpp : this.beanPostProcessors) {
+				instance = bpp.postProcessBeforeInitialization(instance, name);
+			}
+		}
+		return instance;
+	}
+	
+	private Object applyPostProcessAfterInitialization(Object instance, String name) throws Exception {
+		if (!CollectionUtils.isEmpty(beanPostProcessors)) {
+			for (BeanPostProcessor bpp : this.beanPostProcessors) {
+				instance = bpp.postProcessAfterInitialization(instance, name);
+			}
+		}
+		return instance;
+	}
+
+
 	private void setPropertyDIValue(BeanDefinition bd, Object instance) throws Exception {
 		if (CollectionUtils.isEmpty(bd.getPropertyValues())) {
 			return;
@@ -282,6 +311,15 @@ public class DefaultBeanFactory implements BeanFactory, BeanDefinitionRegistry {
 	@Override
 	public boolean containsBeanDefinition(String beanName) {
 		return beanDefinitions.containsKey(beanName);
+	}
+
+
+	@Override
+	public void registerBeanPostProcessor(BeanPostProcessor bpp) {
+		beanPostProcessors.add(bpp);
+		if (bpp instanceof BeanFactoryAware) {
+			((BeanFactoryAware)bpp).setBeanFactory(this);
+		}
 	}
 
 }
