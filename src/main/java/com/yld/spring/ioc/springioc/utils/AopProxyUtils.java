@@ -23,8 +23,6 @@ public abstract class AopProxyUtils {
 		}
 	}
 	
-	
-	
 	public static List<Object> getShouldApplyAdvices(Class<?> beanClass, Method method, List<Advisor> matchAdvisors, BeanFactory beanFactory) throws Exception {
 		if (CollectionUtils.isEmpty(matchAdvisors)) {
 			return null;

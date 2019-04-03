@@ -14,7 +14,6 @@ import com.yld.spring.ioc.springioc.interfaces.beans.impl.BeanReference;
  * @date 2019年3月21日
  */
 public abstract class BeanUtils {
-
 	
 	public static Object getRealValue(BeanFactory factory, Object obj) {
 		Object reuslt = null;
