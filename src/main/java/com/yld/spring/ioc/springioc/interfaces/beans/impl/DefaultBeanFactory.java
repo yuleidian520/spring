@@ -39,6 +39,7 @@ public class DefaultBeanFactory implements BeanFactory, BeanDefinitionRegistry {
 	// private Set<String> aliasList = new HashSet<String>(255);
 	
 	private List<BeanPostProcessor> beanPostProcessors = Collections.synchronizedList(new ArrayList<>());
+	
 	@Override
 	public Object getBean(String name) throws Exception {
 		return doGetBean(name);

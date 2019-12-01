@@ -52,7 +52,7 @@ public class AdvisorAutoProxyCreator implements AdvisorRegistry, BeanPostProcess
 	}
 
 	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws Exception {
+	public Object postProcessAfterInitialization(Object bean, String beanName) throws Exception {
 		List<Advisor> matchAdvisors = getMatchedAdvisors(bean, beanName);
 		
 		if (!CollectionUtils.isEmpty(matchAdvisors)) {
