@@ -1,6 +1,7 @@
 package com.yld.spring.ioc.springioc.exceptions;
 
 /**
+ * 1
  * bean定义注册异常
  * @author yuleidian
  * @date 2019年3月20日
